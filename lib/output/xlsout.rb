@@ -34,15 +34,15 @@ class Xlsout < Baseout
 		# File.open(@options[:outputdir] + "/out.xls", 'w') do |f|
 
 		@oFile.syswrite "<table border=1>\n"
-		@oFile.syswrite "<tr><th>Nessus Plugin ID</th><th>Severity</th><th>Synopsis</th><th>Description</th><th>Solution</th><th>Hosts</th></tr>\n"
+		@oFile.syswrite "<tr><th>Nessus Plugin ID</th><th>Severity</th><th>Synopsis</th><th>Solution</th><th>Score</th><th>Hosts</th><th>Port</th></tr>\n"
 
 		@events.each do |k,v|
-			@oFile.syswrite "<tr><td>" + k.to_s + "</td><td>" + v[:severity].to_s + "</td><td>" + v[:synopsis] + "</td><td>" + v[:description] + "</td><td>" + v[:solution].to_s + "</td>"
+            @oFile.syswrite "<tr><td>"+k.to_s+"</td><td>"+v[:severity].to_s+"</td><td>"+v[:synopsis]+"\nDescription"+v[:description]+"</td><td>"+v[:solution].to_s+"</td><td>"+v[:cvss_base_score].to_s+"</td><td>"+v[:port]+"</td>" 
 			@oFile.syswrite "<td>"
 			impacted_hosts = []
 			v[:ports].each {|k,v|
 				v[:hosts].each do |h,w|
-					impacted_hosts << h
+                    impacted_hosts << h
 				end
 			}
 			impacted_hosts.uniq.each do |host|

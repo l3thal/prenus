@@ -123,7 +123,8 @@ class Nessusin
 								:cvss_base_score => event.cvss_base_score || "",	#CVSS base score
 								:cve => event.cve || "",							#CVE
 								:cvss_vector => event.cvss_vector || "",			#CVSS vector
-								#:port => event.port.to_s || ""						#port
+								:port => event.port.to_s || "",                     #port
+                                :protocol => event.port.protocol || "",
 								:ports => {}
 							}
 							events[event.id][:ports][event.port.to_s] = {:hosts => {targethostid => event.output}}

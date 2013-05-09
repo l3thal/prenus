@@ -113,7 +113,7 @@ class Nessusin
                           events[event.id] = {
                                 #:hosts => [hostid],								#start the hosts array
 								:family => event.family || "",						#vuln family
-								:severity => event.severity || "",
+								:severity => event.severity.in_words.gsub(/Severity/, '') || "",
 								:plugin_name => event.plugin_name || "", 			#plugin name
 								:synopsis => event.synopsis || "",					#synopsis
 								:description => event.description || "",			#description

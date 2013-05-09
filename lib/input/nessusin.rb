@@ -94,9 +94,20 @@ class Nessusin
 
 					# Now lets iterate through each of the findings in this particular host
 					host.each_event do |event|
-
-						# If the events hash already has this event, lets just add this targethostid to it's hosts array within the ports hash
-						if events.has_key?(event.id)
+                        case events[:severity]
+                        when "0" 
+                          events[:severity] = "informational"
+                        when "1" 
+                          events[:severity] = "low"
+                        when "2"
+                          events[:severity] = "medium"
+                        when "3"
+                          events[:severity] = "high"
+                        when "4"
+                          events[:severity] = "critical"
+                        end                 
+              # If the events hash already has this event, lets just add this targethostid to it's hosts array within the ports hash
+              if events.has_key?(event.id)
 
 							#Lets check the ports hash
 							if events[event.id][:ports].has_key?(event.port.to_s)
@@ -110,11 +121,11 @@ class Nessusin
 							end
 
 						# okay, this event doesn't exist, lets add it to the events hash
-						else
-							events[event.id] = {
-								#:hosts => [hostid],									#start the hosts array
+						else           
+                          events[event.id] = {
+                                #:hosts => [hostid],								#start the hosts array
 								:family => event.family || "",						#vuln family
-								:severity => event.severity || "",					#severity
+								:severity => event.severity || "",
 								:plugin_name => event.plugin_name || "", 			#plugin name
 								:synopsis => event.synopsis || "",					#synopsis
 								:description => event.description || "",			#description

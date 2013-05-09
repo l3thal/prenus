@@ -37,7 +37,7 @@ class Xlsout < Baseout
 		@oFile.syswrite "<tr><th>Nessus Plugin ID</th><th>Severity</th><th>Synopsis</th><th>Solution</th><th>Score</th><th>Hosts</th><th>Port</th></tr>\n"
 
 		@events.each do |k,v|
-            @oFile.syswrite "<tr><td>"+k.to_s+"</td><td>"+v[:severity].to_s+"</td><td>"+v[:synopsis]+"\r\n\r\n"+v[:description]+"</td><td>"+v[:solution].to_s+"</td><td>"+v[:cvss_base_score].to_s+"</td><td>"+v[:port]+"</td>" 
+            @oFile.syswrite "<tr><td>"+k.to_s+"</td><td>"+v[:severity].to_s+"</td><td>"+v[:synopsis]+"<br /><br />"+v[:description]+"</td><td>"+v[:solution].to_s+"</td><td>"+v[:cvss_base_score].to_s+"</td><td>"+v[:port]+"</td>" 
 			@oFile.syswrite "<td>"
 			impacted_hosts = []
 			v[:ports].each {|k,v|
